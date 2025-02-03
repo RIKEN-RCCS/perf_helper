@@ -110,7 +110,7 @@ gfortran -fopenmp main.o test.o -lperf_helper
 ## Execution
 
 1. Sample execution script:
-    ```bash
+```bash
     #!/bin/sh
     # 1.Performance
     COUNTER1="INST_SPEC,CPU_CYCLES,STALL_FRONTEND,STALL_BACKEND,FP_SCALE_OPS_SPEC,FP_FIXED_OPS_SPEC"
@@ -141,4 +141,4 @@ gfortran -fopenmp main.o test.o -lperf_helper
       export PAPI_EVENTS=`eval echo '$'$C`
       taskset -c ${STA}-${END} ${LD}
     done
-    ```
+```
