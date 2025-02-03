@@ -110,35 +110,37 @@ gfortran -fopenmp main.o test.o -lperf_helper
 ## Execution
 
 1. Sample execution script:
+   This script execute load module 9times.
 ```bash
-    #!/bin/sh
-    # 1.Performance
-    COUNTER1="INST_SPEC,CPU_CYCLES,STALL_FRONTEND,STALL_BACKEND,FP_SCALE_OPS_SPEC,FP_FIXED_OPS_SPEC"
-    # 2.Instruction Mix
-    COUNTER2="CPU_CYCLES,BR_IMMED_SPEC,BR_INDIRECT_SPEC,LD_SPEC,ST_SPEC"
-    COUNTER3="DP_SPEC,VFP_SPEC,ASE_INST_SPEC,SVE_INST_SPEC"
-    # 3.Cache Effectiveness
-    COUNTER4="INST_RETIRED,L1D_CACHE,L1D_CACHE_REFILL,L1D_CACHE_WB"
-    COUNTER5="L2D_CACHE,L2D_CACHE_REFILL,L2D_CACHE_WB,LL_CACHE_RD,LL_CACHE_MISS_RD"
-    # 4.TLB Effectivenes
-    COUNTER6="INST_RETIRED,DTLB_WALK,ITLB_WALK,L1I_TLB_REFILL,L1D_TLB_REFILL"
-    COUNTER7="L1D_TLB,L1I_TLB,L2D_TLB_REFILL,L2D_TLB"
-    # Performance Debug with implimention defined counter
-    COUNTER8="0x0E1,0x0E2,0x15B,0x158,0x159,0x15A"
-    COUNTER9="0x15C,0x15D,0x15E,0x15F,0x160"
+#!/bin/sh
+# 1.Performance
+COUNTER1="INST_SPEC,CPU_CYCLES,STALL_FRONTEND,STALL_BACKEND,FP_SCALE_OPS_SPEC,FP_FIXED_OPS_SPEC"
+# 2.Instruction Mix
+COUNTER2="CPU_CYCLES,BR_IMMED_SPEC,BR_INDIRECT_SPEC,LD_SPEC,ST_SPEC"
+COUNTER3="DP_SPEC,VFP_SPEC,ASE_INST_SPEC,SVE_INST_SPEC"
+# 3.Cache Effectiveness
+COUNTER4="INST_RETIRED,L1D_CACHE,L1D_CACHE_REFILL,L1D_CACHE_WB"
+COUNTER5="L2D_CACHE,L2D_CACHE_REFILL,L2D_CACHE_WB,LL_CACHE_RD,LL_CACHE_MISS_RD"
+# 4.TLB Effectivenes
+COUNTER6="INST_RETIRED,DTLB_WALK,ITLB_WALK,L1I_TLB_REFILL,L1D_TLB_REFILL"
+COUNTER7="L1D_TLB,L1I_TLB,L2D_TLB_REFILL,L2D_TLB"
+# Performance Debug with implimention defined counter
+COUNTER8="0x0E1,0x0E2,0x15B,0x158,0x159,0x15A"
+COUNTER9="0x15C,0x15D,0x15E,0x15F,0x160"
 
-    LD=${1-"./a.out"}
-    export OMP_NUM_THREADS=${2-"2"}
-    export THREAD_STACK_SIZE=8192
-    export OMP_PROC_BIND=spread
-    export CPUPROFILE=output.prof
+LD=${1-"./a.out"}
+export OMP_NUM_THREADS=${2-"2"}
+export THREAD_STACK_SIZE=8192
+export OMP_PROC_BIND=spread
 
-    STA=0
-    END=`expr ${STA} + ${OMP_NUM_THREADS} - 1`
+STA=0
+END=`expr ${STA} + ${OMP_NUM_THREADS} - 1`
 
-    for i in `seq 1 9`;do
-      C=COUNTER${i}
-      export PAPI_EVENTS=`eval echo '$'$C`
-      taskset -c ${STA}-${END} ${LD}
-    done
+for i in `seq 1 9`;do
+  C=COUNTER${i}
+  export PAPI_EVENTS=`eval echo '$'$C`
+  taskset -c ${STA}-${END} ${LD}
+done
 ```
+
+2. Analyze performance counter output
