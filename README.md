@@ -109,9 +109,10 @@ gfortran -fopenmp main.o test.o -lperf_helper
 
 ## Execution
 
-1. Sample execution script:
+1. Sample script:
 
-   This script execute load module 9times and measure each counter set defined by environment variables COUNTER[0-9].
+This script execute load module 9times and measure each counter set defined by environment variables COUNTER[0-9].
+Since the measurement results are output to standard output, it is recommended to redirect them to an appropriate file.
 
 ```bash
 #!/bin/sh
@@ -146,3 +147,9 @@ done
 ```
 
 2. Analyze performance counter output
+
+The counter values output to output.txt can be analyzed using the following command.
+
+```bash
+python3 anal.py --cpu graviton4 output.txt
+```
