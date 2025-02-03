@@ -3,6 +3,10 @@
 
 ## Introduction
 The `perf_helper` library is designed for performance measurement using `perf`. 
+Performance measurement is conducted by collecting values from PMU counters built into ARM processors.
+It supports interval-based measurement by inserting functions into the source code to mark the start and end of measurement sections.
+The number of PMU counters that can be measured simultaneously is limited by the CPU architecture.
+Although mechanisms like multiplexing exist to increase the apparent number of simultaneously measurable counters, this library prioritizes measurement accuracy and does not incorporate such mechanisms.
 
 - **PMU driver:**  armv8_pmuv3_0
 - **Compilers:**  
