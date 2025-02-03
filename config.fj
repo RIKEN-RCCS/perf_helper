@@ -1,0 +1,5 @@
+CC = fccpx
+FC = frtpx
+AR = ar
+CFLAGS = -Kopenmp -fPIC
+FFLAGS = -Kopenmp -fPIC

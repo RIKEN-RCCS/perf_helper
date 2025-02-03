@@ -1,8 +1,10 @@
-CC = gcc
-FC = gfortran
-AR = ar
-CFLAGS = -fopenmp -fPIC -Wall
-FFLAGS = -fopenmp -fPIC -Wall
+ifeq ($(COMPILER), gcc)
+  include config.gcc
+else ifeq ($(COMPILER), acfl)
+  include config.acfl
+else ifeq ($(COMPILER), fj)
+  include config.fj
+endif
 
 TARGET = libperf_helper.a
 SRCS = $(wildcard *.c *.f90)

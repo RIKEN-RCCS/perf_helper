@@ -1,0 +1,5 @@
+CC = gcc
+FC = gfortran
+AR = ar
+CFLAGS = -fopenmp -fPIC -Wall
+FFLAGS = -fopenmp -fPIC -Wall
