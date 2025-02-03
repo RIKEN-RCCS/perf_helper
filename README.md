@@ -6,8 +6,9 @@ The `perf_helper` library is designed for performance measurement using `perf`.
 
 - **PMU driver:**  armv8_pmuv3_0
 - **Compilers:**  
-  - GCC
-  - GFORTRAN
+  - GCC (gcc, gfortran)
+  - ARM Compiler (armclang, armflang)
+  - Fujitsu Compiler (fccpx, frtpx)
 
 ---
 
