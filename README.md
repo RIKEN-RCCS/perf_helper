@@ -149,7 +149,8 @@ done
 ### Analyze performance counter output
 
 The counter values output to output.txt can be analyzed using the following command.
+Specify the `--cpu` option appropriately according to the measured environment.
 
 ```bash
-python3 anal.py --cpu graviton4 output.txt
+python3 anal.py --cpu {fugaku|graviton3e|graviton4|gracecpu} output.txt
 ```
