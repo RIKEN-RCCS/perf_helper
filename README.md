@@ -110,7 +110,9 @@ gfortran -fopenmp main.o test.o -lperf_helper
 ## Execution
 
 1. Sample execution script:
-   This script execute load module 9times.
+
+   This script execute load module 9times and measure each counter set defined by environment variables COUNTER[0-9].
+
 ```bash
 #!/bin/sh
 # 1.Performance
