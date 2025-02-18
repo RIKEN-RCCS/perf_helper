@@ -104,7 +104,7 @@ gcc -fopenmp main.o test.o -lperf_helper
 ### For Fortran90
 ```bash
 #!/bin/sh
-gfortran -fopenmp -c main.f90 -o main.o
+gfortran -fopenmp -c main.f90 -o main.o -J/usr/local/lib
 gfortran -fopenmp -c test.f90 -o test.o
 gfortran -fopenmp main.o test.o -lperf_helper
 ```
