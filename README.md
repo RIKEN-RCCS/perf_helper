@@ -96,7 +96,7 @@ end program main
 ### For GCC
 ```bash
 #!/bin/sh
-gcc -fopenmp -c main.c -o main.o
+gcc -fopenmp -c main.c -o main.o -J/usr/local/lib
 gcc -fopenmp -c test.c -o test.o
 gcc -fopenmp main.o test.o -lperf_helper
 ```
