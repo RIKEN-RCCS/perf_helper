@@ -142,7 +142,7 @@ export OMP_NUM_THREADS=${2-"2"}
 export THREAD_STACK_SIZE=8192
 export OMP_PROC_BIND=spread
 
-STA=0 # STA must be greater than or equal 12 for A64FX
+STA=0
 END=`expr ${STA} + ${OMP_NUM_THREADS} - 1`
 
 for i in `seq 1 9`;do
