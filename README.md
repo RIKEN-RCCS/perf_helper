@@ -145,7 +145,7 @@ END=`expr ${STA} + ${OMP_NUM_THREADS} - 1`
 
 for i in `seq 1 9`;do
   C=COUNTER${i}
-  export PAPI_EVENTS=`eval echo '$'$C`
+  export PERF_EVENTS=`eval echo '$'$C`
   taskset -c ${STA}-${END} ${LD}
 done
 ```
