@@ -24,7 +24,7 @@ static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
 
 static int get_event_code_from_name(const char *event_name, uint64_t *event_code) {
     for (int i = 0; i < event_list_size; i++) {
-        if (strcmp(event_list[i].name, event_name) == 0) {
+        if (strcasecmp(event_list[i].name, event_name) == 0) {
             *event_code = event_list[i].hex_code;
             return i;
         }
