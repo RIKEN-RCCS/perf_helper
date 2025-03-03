@@ -115,7 +115,7 @@ gfortran -fopenmp main.o test.o -lperf_helper
 
 ## Execution
 
-### Sample script:
+### Sample script for Neoverse:
 
 This script execute load module 9 times and measure each counter set defined by environment variables COUNTER[0-9].
 Since the measurement results are output to standard output, it is recommended to redirect them to an appropriate file.
@@ -149,6 +149,43 @@ for i in `seq 1 9`;do
   C=COUNTER${i}
   export PERF_EVENTS=`eval echo '$'$C`
   taskset -c ${STA}-${END} ${LD}
+done
+```
+
+### Sample script for A64FX:
+
+This script execute load module 10 times and measure each counter set defined by environment variables COUNTER[0-10].
+Since the measurement results are output to standard output, it is recommended to redirect them to an appropriate file.
+
+```bash
+#!/bin/sh
+# 1.Cycle Accounting
+COUNTER1="cpu_cycles,0inst_commit,ld_comp_wait,ld_comp_wait_ex,ld_comp_wait_l2_miss,ld_comp_wait_l2_miss_ex,ld_comp_wait_l1_miss,ld_comp_wait_l1_miss_ex,ld_comp_wait_pfp_busy"
+COUNTER2="ld_comp_wait_pfp_busy_ex,ld_comp_wait_pfp_busy_swpf,eu_comp_wait,fl_comp_wait,br_comp_wait,rob_empty,rob_empty_stq_busy,wfe_wfi_cycle"
+COUNTER3="uop_only_commit,single_movprfx_commit,1inst_commit,2inst_commit,3inst_commit,4inst_commit"
+# 2.Instruction Mix
+COUNTER4="cpu_cycles,inst_spec,fp_spec,fp_fma_spec,fp_recpe_spec,fp_cvt_spec,fp_mv_spec,ase_sve_int_spec,prd_spec"
+COUNTER5="ld_spec,base_ld_reg_spec,ase_sve_ld_spec,fp_ld_spec,sve_ldr_reg_spec,sve_ldr_preg_spec,bc_ld_spec,ase_sve_ld_multi_spec"
+COUNTER6="sve_ld_gather_spec,sve_ldff_spec,st_spec,base_st_reg_spec,ase_sve_st_spec,fp_st_spec,sve_str_reg_spec,sve_str_preg_spec"
+COUNTER7="ase_sve_st_multi_spec,sve_st_scatter_spec,prf_spec,sve_prf_gather_spec,sve_prf_contig_spec,br_pred,sve_movprfx_spec,dp_spec"
+# 3.Graviton3E like analysis
+COUNTER8="cpu_cycles,BR_IMMED_SPEC,BR_INDIRECT_SPEC,VFP_SPEC,SIMD_INST_RETIRED,SVE_INST_RETIRED,inst_spec"
+COUNTER9="inst_retired,stall_frontend,stall_backend,fp_scale_ops_spec,fp_fixed_ops_spec,l1i_tlb_refill,l1d_tlb_refill"
+COUNTER10="l1d_cache,l1d_cache_refill,l1d_cache_wb,l2d_cache,l2d_cache_refill,l2d_cache_wb,l2d_tlb_refill,l2d_tlb"
+
+export OMP_NUM_THREADS=${1-"48"}
+export THREAD_STACK_SIZE=8192
+export OMP_PROC_BIND=spread
+
+STA=12
+END=`expr 12 + ${OMP_NUM_THREADS} - 1`
+
+xospastop
+
+for i in `seq 1 10`;do
+ C=COUNTER${i}
+ export PERF_EVENTS=`eval echo '$'$C`
+ taskset -c ${STA}-${END} ./a.out
 done
 ```
 
