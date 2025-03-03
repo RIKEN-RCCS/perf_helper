@@ -1,0 +1,5 @@
+CC = clang
+FC = flang
+AR = ar
+CFLAGS = -fopenmp -fPIC -Wall
+FFLAGS = -fopenmp -fPIC -Wall

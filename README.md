@@ -13,6 +13,7 @@ Although mechanisms like multiplexing exist to increase the apparent number of s
   - GCC (gcc, gfortran)
   - ARM Compiler (armclang, armflang)
   - Fujitsu Compiler (fccpx, frtpx)
+  - LLVM (clang, flang)
 
 ---
 
@@ -21,6 +22,7 @@ To build perf_helper library, simply execute make.
 - for GCC : `make COMPILER=gcc`
 - for ARM Compiler : `make COMPILER=acfl`
 - for Fujitsu Compiler : `make COMPILER=fj`
+- for LLVM : `make COMPILER=llvm`
 
 ---
 
@@ -140,7 +142,7 @@ export OMP_NUM_THREADS=${2-"2"}
 export THREAD_STACK_SIZE=8192
 export OMP_PROC_BIND=spread
 
-STA=0
+STA=0 # STA must be greater than or equal 12 for A64FX
 END=`expr ${STA} + ${OMP_NUM_THREADS} - 1`
 
 for i in `seq 1 9`;do

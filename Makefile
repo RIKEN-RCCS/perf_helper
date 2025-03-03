@@ -4,6 +4,8 @@ else ifeq ($(COMPILER), acfl)
   include config.acfl
 else ifeq ($(COMPILER), fj)
   include config.fj
+else ifeq ($(COMPILER), llvm)
+  include config.llvm
 endif
 
 TARGET = libperf_helper.a
