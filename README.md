@@ -117,7 +117,7 @@ gfortran -fopenmp main.o test.o -lperf_helper
 
 ### Sample script for Neoverse:
 
-This script execute load module 9 times and measure each counter set defined by environment variables COUNTER[0-9].
+This script execute load module 9 times and measure each counter set defined by environment variables COUNTER[1-9].
 Since the measurement results are output to standard output, it is recommended to redirect them to an appropriate file.
 
 ```bash
@@ -154,7 +154,7 @@ done
 
 ### Sample script for A64FX:
 
-This script execute load module 10 times and measure each counter set defined by environment variables COUNTER[0-10].
+This script execute load module 10 times and measure each counter set defined by environment variables COUNTER[1-10].
 Since the measurement results are output to standard output, it is recommended to redirect them to an appropriate file.
 
 ```bash
