@@ -92,6 +92,9 @@ end program main
 ```
 
 ### Experimental : Python
+
+> note : perf_start_section and perf_stop_section can be executed inside an OpenMP parallel region to obtain information for each thread. However, since Python does not have a built-in feature to directly execute OpenMP, in the example below, these functions are executed outside the parallel region, resulting in collecting information only for the master thread.
+
 ```python
 import torch
 import time
