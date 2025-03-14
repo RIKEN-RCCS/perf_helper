@@ -8,7 +8,7 @@ else ifeq ($(COMPILER), llvm)
   include config.llvm
 endif
 
-TARGET = libperf_helper.a
+TARGET = libperf_helper.so
 SRCS = $(wildcard *.c *.f90)
 OBJS = $(SRCS:.c=.o)
 OBJS := $(OBJS:.f90=.o)
@@ -20,7 +20,7 @@ RM = rm -f
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(AR) r $(TARGET) $(OBJS)
+	$(CC) -shared -o $(TARGET) -fopenmp $(OBJS)
 
 %.o: %.c
 	$(CC) $< -c $(CFLAGS)

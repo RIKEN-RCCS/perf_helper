@@ -91,6 +91,36 @@ program main
 end program main
 ```
 
+### Experimental : Python
+```python
+import torch
+import time
+import ctypes
+
+perf = ctypes.CDLL('./libperf_helper.so')
+
+perf.perf_start_section.argtypes = [ctypes.c_int]
+perf.perf_stop_section.argtypes = [ctypes.c_int]
+
+print("oneDNN (MKL-DNN) enabled:", torch.backends.mkldnn.is_available())
+print("ACL enabled:", torch.backends.quantized.engine)
+
+def benchmark_matmul():
+    x = torch.randn(1000, 1000)
+    y = torch.randn(1000, 1000)
+    start = time.time()
+    perf.perf_start_section(0)
+    for _ in range(100):
+        z = torch.matmul(x, y)
+    perf.perf_stop_section(0)
+    end = time.time()
+    print(f"Execution time: {end - start:.5f} seconds")
+
+perf.perf_initialize()
+benchmark_matmul()
+perf.perf_finalize()
+```
+
 ---
 
 ## Compilation
